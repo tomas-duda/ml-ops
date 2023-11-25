@@ -1,1 +1,1 @@
-Description of my repository
+Description of ml_app
