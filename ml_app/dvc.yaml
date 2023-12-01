@@ -1,0 +1,20 @@
+stages:
+  clean_data:
+    cmd: python src/clean_data.py --input ../data
+    deps:
+      - src/clean_data.py
+      - ../data/raw/titanic.csv
+    outs:
+      - ../data/cleaned/titanic.csv
+  compute_features:
+    cmd: python src/compute_features.py --input ../data
+    deps:
+      - src/compute_features.py
+      - ../data/cleaned/titanic.csv
+    outs:
+      - ../data/features/titanic.csv
+  fit_model:
+    cmd: python src/fit_model.py --input ../data
+    deps:
+      - src/fit_model.py
+      - ../data/features/titanic.csv
