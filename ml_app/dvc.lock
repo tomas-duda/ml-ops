@@ -1,0 +1,47 @@
+schema: '2.0'
+stages:
+  clean_data:
+    cmd: python src/clean_data.py --input ../data
+    deps:
+    - path: ../data/raw/titanic.csv
+      hash: md5
+      md5: 6aec44249b07348eb903b8d0bc3b100a
+      size: 60304
+    - path: src/clean_data.py
+      hash: md5
+      md5: 3543255b304e2b5779ca53f49e022870
+      size: 3342
+    outs:
+    - path: ../data/cleaned/titanic.csv
+      hash: md5
+      md5: 7d3235ac8c4c7e597b311d43e1e5553c
+      size: 32222
+  next_stage:
+    cmd: echo abc
+  compute_features:
+    cmd: python src/compute_features.py --input ../data
+    deps:
+    - path: ../data/cleaned/titanic.csv
+      hash: md5
+      md5: 7d3235ac8c4c7e597b311d43e1e5553c
+      size: 32222
+    - path: src/compute_features.py
+      hash: md5
+      md5: 01e1bfcafade3bd9b85c7e404ab7a922
+      size: 2466
+    outs:
+    - path: ../data/features/titanic.csv
+      hash: md5
+      md5: e3f9f577dbcf63374d1d4d2a7bcfac10
+      size: 67124
+  fit_model:
+    cmd: python src/fit_model.py --input ../data
+    deps:
+    - path: ../data/features/titanic.csv
+      hash: md5
+      md5: e3f9f577dbcf63374d1d4d2a7bcfac10
+      size: 67124
+    - path: src/fit_model.py
+      hash: md5
+      md5: 65e23695ec9d921a5987e302b237a10e
+      size: 2368
